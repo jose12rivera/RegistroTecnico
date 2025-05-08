@@ -45,7 +45,7 @@ fun TecnicoScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(title = { Text("") })
+            TopAppBar(title = { Text("Crear Técnicos") })
         }
     ) { innerPadding ->
         Column(
