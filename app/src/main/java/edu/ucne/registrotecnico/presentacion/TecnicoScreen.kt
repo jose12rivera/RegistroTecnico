@@ -1,6 +1,7 @@
 package edu.ucne.registrotecnico.presentacion
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -26,10 +27,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import edu.ucne.registrotecnico.data.local.entities.TecnicoEntity
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -45,7 +51,24 @@ fun TecnicoScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(title = { Text("Crear Técnicos") })
+            TopAppBar(
+                title = {
+                    Box(
+                        modifier = Modifier.fillMaxWidth(),
+                        contentAlignment = Alignment.Center
+                    ){}
+                    Text(
+                        text = if (tecnico == null) "Registrar Técnico" else "Editar Técnico",
+                        style = TextStyle(
+                            fontSize = 23.sp,
+                            fontWeight = FontWeight.Bold,
+                            textAlign = TextAlign.Center
+                        ),
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                },
+            )
+
         }
     ) { innerPadding ->
         Column(
