@@ -1,4 +1,4 @@
-package edu.ucne.registrotecnico.presentacion
+package edu.ucne.registrotecnico.presentacion.Tecnicos
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel

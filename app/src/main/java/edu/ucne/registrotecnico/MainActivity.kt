@@ -10,9 +10,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewmodel.compose.viewModel
 import edu.ucne.registrotecnico.data.local.entities.TecnicoEntity
-import edu.ucne.registrotecnico.presentacion.TecnicoListScreen
-import edu.ucne.registrotecnico.presentacion.TecnicoScreen
-import edu.ucne.registrotecnico.presentacion.TecnicoViewModel
+import edu.ucne.registrotecnico.presentacion.Tecnicos.TecnicoListScreen
+import edu.ucne.registrotecnico.presentacion.Tecnicos.TecnicoScreen
+import edu.ucne.registrotecnico.presentacion.Tecnicos.TecnicoViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
