@@ -1,3 +1,4 @@
+
 package edu.ucne.registrotecnico.presentacion.Tecnicos
 
 import androidx.compose.foundation.background
@@ -43,7 +44,7 @@ fun TecnicoListScreen(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = onCreate,
-                containerColor = Color(0xFF4CAF50), // Verde,
+                containerColor = Color(0xFF4CAF50),
                 contentColor = Color.White
             ) {
                 Icon(Icons.Filled.Add, contentDescription = "Agregar")
@@ -55,9 +56,8 @@ fun TecnicoListScreen(
                 .fillMaxSize()
                 .background(
                     brush = Brush.verticalGradient(
-                        colors = listOf(Color(0xFF60B5FF), Color(0xFF60B5FF)) // Azul claro
+                        colors = listOf(Color(0xFF60B5FF), Color(0xFF60B5FF))
                     )
-
                 )
                 .padding(paddingValues)
                 .padding(16.dp)
@@ -106,14 +106,12 @@ fun TecnicoRow(
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(text = "Sueldo: ", fontWeight = FontWeight.Bold, fontSize = 16.sp)
                     Text(text = "RD$${tecnico.Sueldo}", fontSize = 16.sp)
-
                 }
             }
 
-
             Row {
                 IconButton(onClick = { onEdit(tecnico) }) {
-                    Icon(Icons.Filled.Edit, contentDescription = "Editar", tint = Color(0xFF1976D2)) // Azul
+                    Icon(Icons.Filled.Edit, contentDescription = "Editar", tint = Color(0xFF1976D2))
                 }
                 IconButton(onClick = { onDelete(tecnico) }) {
                     Icon(Icons.Filled.Delete, contentDescription = "Eliminar", tint = Color.Red)

@@ -1,3 +1,5 @@
+
+
 package edu.ucne.registrotecnico.presentacion.Tecnicos
 
 import androidx.compose.foundation.layout.Arrangement
@@ -56,7 +58,7 @@ fun TecnicoScreen(
                     Box(
                         modifier = Modifier.fillMaxWidth(),
                         contentAlignment = Alignment.Center
-                    ){}
+                    ) {}
                     Text(
                         text = if (tecnico == null) "Registrar Técnico" else "Editar Técnico",
                         style = TextStyle(
@@ -68,7 +70,6 @@ fun TecnicoScreen(
                     )
                 },
             )
-
         }
     ) { innerPadding ->
         Column(
@@ -126,9 +127,7 @@ fun TecnicoScreen(
                             },
                             modifier = Modifier.width(120.dp),
                             contentPadding = PaddingValues(horizontal = 16.dp),
-                            colors = ButtonDefaults.buttonColors(
-                                containerColor = MaterialTheme.colorScheme.primary // Azul por defecto del tema
-                            )
+                            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
                         ) {
                             Text("Guardar", color = Color.White)
                         }
@@ -137,9 +136,7 @@ fun TecnicoScreen(
                             onClick = onCancel,
                             modifier = Modifier.width(120.dp),
                             contentPadding = PaddingValues(horizontal = 16.dp),
-                            colors = ButtonDefaults.buttonColors(
-                                containerColor = Color(0xFF4CAF50) // Verde
-                            )
+                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4CAF50))
                         ) {
                             Text("Cancelar", color = Color.White)
                         }
