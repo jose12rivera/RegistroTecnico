@@ -18,10 +18,10 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         val tecnicoDb = Room.databaseBuilder(
-            applicationContext,
-            TecnicoDb::class.java,
-            "Tecnico.db"
-        ).fallbackToDestructiveMigration()
+                applicationContext,
+                TecnicoDb::class.java,
+                "Tecnico.db"
+            ).fallbackToDestructiveMigration(false)
             .build()
 
         val tecnicosRepository = TecnicosRepository(tecnicoDb.TecnicoDao())
