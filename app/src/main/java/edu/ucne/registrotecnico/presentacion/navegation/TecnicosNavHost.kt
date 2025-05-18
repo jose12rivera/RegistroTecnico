@@ -1,5 +1,6 @@
 package edu.ucne.registrotecnicos.presentation.navigation
 
+import DashboardScreen
 import TicketScreen
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -7,7 +8,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
-import edu.ucne.registrotecnico.presentacion.Home.DashboardScreen
+
 import edu.ucne.registrotecnico.presentacion.Tecnicos.TecnicoViewModel
 import edu.ucne.registrotecnico.presentacion.navegation.Screen
 import edu.ucne.registrotecnico.presentacion.Tecnicos.TecnicoListScreen

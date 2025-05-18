@@ -1,19 +1,6 @@
-package edu.ucne.registrotecnico.presentacion.Home
-
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,9 +12,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -46,7 +33,7 @@ fun DashboardScreen(navController: NavController) {
                     )
                 },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor = Color(0xFF311B92)
+                    containerColor = Color(0xFF4E71FF)
                 )
             )
         }
@@ -64,53 +51,69 @@ fun DashboardScreen(navController: NavController) {
             verticalArrangement = Arrangement.spacedBy(32.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
             Text(
                 text = "Gestión de Técnicos",
                 style = TextStyle(
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Color(0xFF311B92),
+                    color = Color(0xFF4E71FF),
                     textAlign = TextAlign.Center
                 ),
                 modifier = Modifier.fillMaxWidth()
             )
 
-            OutlinedButton(
+            // Botón Técnicos con nuevo estilo
+            Button(
                 onClick = {
                     navController.navigate("tecnicoList")
                 },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(50.dp),
+                shape = RoundedCornerShape(12.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0xFF4E71FF),
+                    contentColor = Color.White
+                )
             ) {
                 Text(
                     text = "Técnicos",
-                    modifier = Modifier.padding(8.dp),
-                    fontSize = 16.sp
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold
                 )
             }
-            Spacer(modifier = Modifier.height(0.dp))
+
+            Spacer(modifier = Modifier.height(8.dp))
 
             Text(
                 text = "Gestión de Tickets",
                 style = TextStyle(
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Color(0xFF311B92),
+                    color = Color(0xFF4E71FF),
                     textAlign = TextAlign.Center
                 ),
                 modifier = Modifier.fillMaxWidth()
             )
 
-            OutlinedButton(
+            // Botón Tickets con nuevo estilo
+            Button(
                 onClick = {
-                    navController.navigate("TicketList") // Asegúrate de tener esta pantalla
+                    navController.navigate("TicketList")
                 },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(50.dp),
+                shape = RoundedCornerShape(12.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0xFF4E71FF),
+                    contentColor = Color.White
+                )
             ) {
                 Text(
                     text = "Tickets",
-                    modifier = Modifier.padding(8.dp),
-                    fontSize = 16.sp
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold
                 )
             }
         }

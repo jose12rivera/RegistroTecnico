@@ -60,7 +60,7 @@ fun TicketListScreen(
                 .fillMaxSize()
                 .background(
                     brush = Brush.verticalGradient(
-                        colors = listOf(Color(0xFFF5F5F5), Color(0xFF7E57C2))
+                        colors = listOf(Color(0xFF60B5FF), Color(0xFF60B5FF))
                     )
                 )
                 .padding(paddingValues)
@@ -71,7 +71,6 @@ fun TicketListScreen(
                 style = TextStyle(
                     fontSize = 23.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Color(0xFF311B92),
                     textAlign = TextAlign.Center
                 ),
                 modifier = Modifier.fillMaxWidth()
@@ -122,6 +121,10 @@ fun TicketRow(
                     Text(text = "Descripcion: ", fontWeight = FontWeight.Bold, fontSize = 16.sp)
                     Text(text = ticket.Descripcion, fontSize = 16.sp)
                 }
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(text = "Prioridad: ", fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                    Text(text = ticket.Prioridad, fontSize = 16.sp)
+                }
             }
 
             Row {
@@ -141,9 +144,9 @@ fun TicketRow(
 fun TicketListScreenPreview() {
     val sampleTickets = remember {
         mutableStateListOf(
-            TicketEntity(Fecha = "2024-05-16", Cliente = "Juan Pérez", Asunto = "Revisión", Descripcion = "Equipo no enciende", Prioridad = "Alta"),
-            TicketEntity(Fecha = "2024-05-17", Cliente = "María García", Asunto = "Instalación", Descripcion = "Configurar impresora", Prioridad = "Media"),
-            TicketEntity(Fecha = "2024-05-18", Cliente = "Carlos López", Asunto = "Mantenimiento", Descripcion = "Limpieza de sistema", Prioridad = "Baja")
+            TicketEntity(Fecha = "2054-03-66", Cliente = "Jose", Asunto = "Reparacion", Descripcion = "Equipo no enciende", Prioridad = "Alta"),
+            TicketEntity(Fecha = "2054-02-17", Cliente = "Luis", Asunto = "Instalación", Descripcion = "Configurar impresora", Prioridad = "Media"),
+            TicketEntity(Fecha = "2054-05-18", Cliente = "Pedro", Asunto = "Mantenimiento", Descripcion = " Trabajo", Prioridad = "Baja")
         )
     }
 

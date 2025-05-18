@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -118,19 +119,20 @@ fun TicketScreen(
                         modifier = Modifier.padding(top = 4.dp)
                     )
                 }
-
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Button(
                         onClick = { onCancel() },
+                        colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
                         modifier = Modifier
                             .weight(1f)
                             .padding(end = 8.dp)
                     ) {
                         Text("Cancelar")
                     }
+
                     Button(
                         onClick = {
                             when {
@@ -141,10 +143,11 @@ fun TicketScreen(
                                 prioridad.isBlank() -> error = "La prioridad es requerida"
                                 else -> {
                                     error = null
-                                    agregarTicket(fecha, cliente, asunto, descripcion,prioridad)
+                                    agregarTicket(fecha, cliente, asunto, descripcion, prioridad)
                                 }
                             }
                         },
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4CAF50)), // Verde
                         modifier = Modifier
                             .weight(1f)
                             .padding(start = 8.dp)
@@ -152,6 +155,8 @@ fun TicketScreen(
                         Text("Guardar")
                     }
                 }
+
+
             }
         }
     }

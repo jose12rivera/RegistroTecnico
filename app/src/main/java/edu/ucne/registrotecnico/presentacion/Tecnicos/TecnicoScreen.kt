@@ -99,7 +99,7 @@ fun TecnicoScreen(
                 ) {
                     Button(
                         onClick = onCancel,
-                        colors = ButtonDefaults.buttonColors(containerColor = Color.Gray)
+                        colors = ButtonDefaults.buttonColors(containerColor = Color.Red)
                     ) {
                         Text("Cancelar")
                     }
@@ -116,7 +116,7 @@ fun TecnicoScreen(
                                 agregarTecnico(nombre, sueldoDouble)
                             }
                         },
-                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4CAF50))
+                        colors = ButtonDefaults.buttonColors(containerColor = Color.Green)
                     ) {
                         if (tecnico == null) {
                             Icon(Icons.Default.CheckCircle, contentDescription = "Guardar")
