@@ -10,6 +10,6 @@ data class TicketEntity(
     val Cliente: String,
     val Asunto: String,
     val Descripcion: String,
-    val Prioridad: String // <--- Este campo debe estar
+    val Prioridad: String
 )
 
