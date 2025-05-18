@@ -1,5 +1,6 @@
 package edu.ucne.registrotecnico.presentacion.Tecnicos
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import edu.ucne.registrotecnico.data.local.entities.TecnicoEntity
@@ -18,9 +19,11 @@ class TecnicoViewModel(
     init {
         loadTecnicos()
     }
+
     private fun loadTecnicos() {
         viewModelScope.launch {
             tecnicosRepository.getAll().collect { lista ->
+                Log.d("TecnicoViewModel", "Lista recibida: ${lista.size}")
                 _tecnicoList.value = lista
             }
         }
