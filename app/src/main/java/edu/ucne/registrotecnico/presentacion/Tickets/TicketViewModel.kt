@@ -3,8 +3,10 @@ package edu.ucne.registrotecnico.presentacion.Tickets
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import edu.ucne.registrotecnico.data.local.entities.PrioridadEntity
 import edu.ucne.registrotecnico.data.local.entities.TicketEntity
 import edu.ucne.registrotecnico.data.respository.TicketRepository
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
@@ -14,6 +16,7 @@ import javax.inject.Inject
 class TicketViewModel @Inject constructor(
     private val repository: TicketRepository
 ) : ViewModel() {
+    val prioridadList = MutableStateFlow<List<PrioridadEntity>>(emptyList())
 
     // Lista observable de tickets
     val ticketList: StateFlow<List<TicketEntity>> = repository.getAll()
@@ -60,7 +63,8 @@ class TicketViewModel @Inject constructor(
         saveTicket(ticket)
     }
 
-    // Buscar por ID
+
+//     Buscar por ID
     fun getTicketById(id: Int?): TicketEntity? {
         return ticketList.value.find { it.TicketId == id }
     }

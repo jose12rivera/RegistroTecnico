@@ -4,19 +4,21 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Query
 import androidx.room.Upsert
+import edu.ucne.registrotecnico.data.local.entities.PrioridadEntity
 import edu.ucne.registrotecnico.data.local.entities.TicketEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface TicketDao {
-    @Upsert()
+
+    @Upsert
     suspend fun save(ticket: TicketEntity)
 
     @Query(
         """
         SELECT * 
         FROM Tickets
-        WHERE TicketId=:id
+        WHERE TicketId = :id
         LIMIT 1
         """
     )
@@ -28,3 +30,4 @@ interface TicketDao {
     @Query("SELECT * FROM Tickets")
     fun getAll(): Flow<List<TicketEntity>>
 }
+

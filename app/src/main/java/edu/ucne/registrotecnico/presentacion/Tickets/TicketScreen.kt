@@ -1,3 +1,5 @@
+package edu.ucne.registrotecnico.ui.tickets
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -12,6 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import edu.ucne.registrotecnico.data.local.entities.TicketEntity
+import edu.ucne.registrotecnico.data.local.entities.PrioridadEntity
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -20,13 +23,26 @@ fun TicketScreen(
     agregarTicket: (String, String, String, String, Int, Int) -> Unit,
     onCancel: () -> Unit
 ) {
+    // Campos normales
     var fecha by remember { mutableStateOf(ticket?.Fecha ?: "") }
     var cliente by remember { mutableStateOf(ticket?.Cliente ?: "") }
     var asunto by remember { mutableStateOf(ticket?.Asunto ?: "") }
     var descripcion by remember { mutableStateOf(ticket?.Descripcion ?: "") }
-    var prioridadId by remember { mutableStateOf(ticket?.PrioridadId?.toString() ?: "") }
     var tecnicoId by remember { mutableStateOf(ticket?.TecnicoId?.toString() ?: "") }
     var error by remember { mutableStateOf<String?>(null) }
+
+    // Lista demo de prioridades
+    val prioridades = PrioridadEntity.PrioridadesDemo
+
+    // Estado para dropdown
+    var expanded by remember { mutableStateOf(false) }
+    var prioridadSeleccionada by remember {
+        mutableStateOf(
+            ticket?.PrioridadId?.let { id ->
+                prioridades.find { it.PrioridadId == id } ?: prioridades.firstOrNull()
+            } ?: prioridades.firstOrNull()
+        )
+    }
 
     Scaffold(
         topBar = {
@@ -88,12 +104,42 @@ fun TicketScreen(
                     label = { Text("Descripción") },
                     modifier = Modifier.fillMaxWidth()
                 )
-                OutlinedTextField(
-                    value = prioridadId,
-                    onValueChange = { prioridadId = it },
-                    label = { Text("Prioridad ID") },
+
+                // Dropdown de prioridad
+                ExposedDropdownMenuBox(
+                    expanded = expanded,
+                    onExpandedChange = { expanded = !expanded },
                     modifier = Modifier.fillMaxWidth()
-                )
+                ) {
+                    OutlinedTextField(
+                        readOnly = true,
+                        value = prioridadSeleccionada?.Nivel ?: "Selecciona Prioridad",
+                        onValueChange = {},
+                        label = { Text("Prioridad") },
+                        trailingIcon = {
+                            ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
+                        },
+                        modifier = Modifier
+                            .menuAnchor()
+                            .fillMaxWidth()
+                    )
+
+                    ExposedDropdownMenu(
+                        expanded = expanded,
+                        onDismissRequest = { expanded = false }
+                    ) {
+                        prioridades.forEach { prioridad ->
+                            DropdownMenuItem(
+                                text = { Text(prioridad.Nivel) },
+                                onClick = {
+                                    prioridadSeleccionada = prioridad
+                                    expanded = false
+                                }
+                            )
+                        }
+                    }
+                }
+
                 OutlinedTextField(
                     value = tecnicoId,
                     onValueChange = { tecnicoId = it },
@@ -130,9 +176,8 @@ fun TicketScreen(
                                 cliente.isBlank() -> error = "El cliente es requerido"
                                 asunto.isBlank() -> error = "El asunto es requerido"
                                 descripcion.isBlank() -> error = "La descripción es requerida"
-                                prioridadId.isBlank() -> error = "El Prioridad ID es requerido"
+                                prioridadSeleccionada == null -> error = "Debe seleccionar una prioridad"
                                 tecnicoId.isBlank() -> error = "El Técnico ID es requerido"
-                                prioridadId.toIntOrNull() == null -> error = "Prioridad ID debe ser un número"
                                 tecnicoId.toIntOrNull() == null -> error = "Técnico ID debe ser un número"
                                 else -> {
                                     error = null
@@ -141,7 +186,7 @@ fun TicketScreen(
                                         cliente,
                                         asunto,
                                         descripcion,
-                                        prioridadId.toInt(),
+                                        prioridadSeleccionada?.PrioridadId ?: 0,
                                         tecnicoId.toInt()
                                     )
                                 }
