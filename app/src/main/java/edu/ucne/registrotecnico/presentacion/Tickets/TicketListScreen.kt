@@ -122,8 +122,12 @@ fun TicketRow(
                     Text(text = ticket.Descripcion, fontSize = 16.sp)
                 }
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(text = "Prioridad: ", fontWeight = FontWeight.Bold, fontSize = 16.sp)
-                    Text(text = ticket.Prioridad, fontSize = 16.sp)
+                    Text(text = "Prioridad ID: ", fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                    Text(text = ticket.PrioridadId.toString(), fontSize = 16.sp)
+                }
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(text = "Técnico ID: ", fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                    Text(text = ticket.TecnicoId.toString(), fontSize = 16.sp)
                 }
             }
 
@@ -137,35 +141,4 @@ fun TicketRow(
             }
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun TicketListScreenPreview() {
-    val sampleTickets = remember {
-        mutableStateListOf(
-            TicketEntity(Fecha = "2054-03-66", Cliente = "Jose", Asunto = "Reparacion", Descripcion = "Equipo no enciende", Prioridad = "Alta"),
-            TicketEntity(Fecha = "2054-02-17", Cliente = "Luis", Asunto = "Instalación", Descripcion = "Configurar impresora", Prioridad = "Media"),
-            TicketEntity(Fecha = "2054-05-18", Cliente = "Pedro", Asunto = "Mantenimiento", Descripcion = " Trabajo", Prioridad = "Baja")
-        )
-    }
-
-
-    TicketListScreen(
-        TicketList = sampleTickets,
-        onCreate = {
-            sampleTickets.add(
-                TicketEntity(
-                    Fecha = "2024-05-19",
-                    Cliente = "Nuevo Cliente",
-                    Asunto = "Consulta",
-                    Descripcion = "Consulta general",
-                    Prioridad = "Alta"
-                )
-            )
-        }
-        ,
-        onDelete = { ticket -> sampleTickets.remove(ticket) },
-        onEdit = { /* Simulación de edición */ }
-    )
 }

@@ -1,24 +1,7 @@
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -34,15 +17,15 @@ import edu.ucne.registrotecnico.data.local.entities.TicketEntity
 @Composable
 fun TicketScreen(
     ticket: TicketEntity?,
-    agregarTicket: (String, String, String, String, String) -> Unit,
-
+    agregarTicket: (String, String, String, String, Int, Int) -> Unit,
     onCancel: () -> Unit
 ) {
     var fecha by remember { mutableStateOf(ticket?.Fecha ?: "") }
     var cliente by remember { mutableStateOf(ticket?.Cliente ?: "") }
     var asunto by remember { mutableStateOf(ticket?.Asunto ?: "") }
     var descripcion by remember { mutableStateOf(ticket?.Descripcion ?: "") }
-    var prioridad by remember { mutableStateOf("") } // Nueva variable
+    var prioridadId by remember { mutableStateOf(ticket?.PrioridadId?.toString() ?: "") }
+    var tecnicoId by remember { mutableStateOf(ticket?.TecnicoId?.toString() ?: "") }
     var error by remember { mutableStateOf<String?>(null) }
 
     Scaffold(
@@ -51,7 +34,7 @@ fun TicketScreen(
                 title = {
                     Text(
                         text = if (ticket == null) "Registrar Ticket" else "Editar Ticket",
-                        style = androidx.compose.ui.text.TextStyle(
+                        style = MaterialTheme.typography.titleLarge.copy(
                             fontSize = 22.sp,
                             fontWeight = FontWeight.Bold,
                             textAlign = TextAlign.Center
@@ -106,9 +89,15 @@ fun TicketScreen(
                     modifier = Modifier.fillMaxWidth()
                 )
                 OutlinedTextField(
-                    value = prioridad,
-                    onValueChange = { prioridad = it },
-                    label = { Text("Prioridad") },
+                    value = prioridadId,
+                    onValueChange = { prioridadId = it },
+                    label = { Text("Prioridad ID") },
+                    modifier = Modifier.fillMaxWidth()
+                )
+                OutlinedTextField(
+                    value = tecnicoId,
+                    onValueChange = { tecnicoId = it },
+                    label = { Text("Técnico ID") },
                     modifier = Modifier.fillMaxWidth()
                 )
 
@@ -119,6 +108,7 @@ fun TicketScreen(
                         modifier = Modifier.padding(top = 4.dp)
                     )
                 }
+
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
@@ -140,14 +130,24 @@ fun TicketScreen(
                                 cliente.isBlank() -> error = "El cliente es requerido"
                                 asunto.isBlank() -> error = "El asunto es requerido"
                                 descripcion.isBlank() -> error = "La descripción es requerida"
-                                prioridad.isBlank() -> error = "La prioridad es requerida"
+                                prioridadId.isBlank() -> error = "El Prioridad ID es requerido"
+                                tecnicoId.isBlank() -> error = "El Técnico ID es requerido"
+                                prioridadId.toIntOrNull() == null -> error = "Prioridad ID debe ser un número"
+                                tecnicoId.toIntOrNull() == null -> error = "Técnico ID debe ser un número"
                                 else -> {
                                     error = null
-                                    agregarTicket(fecha, cliente, asunto, descripcion, prioridad)
+                                    agregarTicket(
+                                        fecha,
+                                        cliente,
+                                        asunto,
+                                        descripcion,
+                                        prioridadId.toInt(),
+                                        tecnicoId.toInt()
+                                    )
                                 }
                             }
                         },
-                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4CAF50)), // Verde
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4CAF50)),
                         modifier = Modifier
                             .weight(1f)
                             .padding(start = 8.dp)
@@ -155,8 +155,6 @@ fun TicketScreen(
                         Text("Guardar")
                     }
                 }
-
-
             }
         }
     }
@@ -167,8 +165,8 @@ fun TicketScreen(
 fun TicketScreenPreview() {
     TicketScreen(
         ticket = null,
-        agregarTicket = { fecha, cliente, asunto, descripcion, prioridad ->
-            println("Nuevo ticket: $fecha, $cliente, $asunto, $descripcion, Prioridad: $prioridad")
+        agregarTicket = { fecha, cliente, asunto, descripcion, prioridadId, tecnicoId ->
+            println("Nuevo ticket: $fecha, $cliente, $asunto, $descripcion, PrioridadId: $prioridadId, TecnicoId: $tecnicoId")
         },
         onCancel = { println("Cancelado") }
     )

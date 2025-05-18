@@ -11,48 +11,56 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class TicketViewModel@Inject constructor(
+class TicketViewModel @Inject constructor(
     private val repository: TicketRepository
 ) : ViewModel() {
 
-    // Exponemos la lista de tickets como StateFlow
+    // Lista observable de tickets
     val ticketList: StateFlow<List<TicketEntity>> = repository.getAll()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
-    fun agregarTicket(fecha: String, cliente: String, asunto: String, descripcion: String, prioridad: String) {
+    // Agregar un ticket
+    fun agregarTicket(
+        fecha: String,
+        cliente: String,
+        asunto: String,
+        descripcion: String,
+        prioridadId: Int,
+        tecnicoId: Int
+    ) {
         viewModelScope.launch {
             val ticket = TicketEntity(
                 Fecha = fecha,
                 Cliente = cliente,
                 Asunto = asunto,
                 Descripcion = descripcion,
-                Prioridad = prioridad
+                PrioridadId = prioridadId,
+                TecnicoId = tecnicoId
             )
             saveTicket(ticket)
         }
     }
 
-
-    // Guardar o actualizar un ticket
+    // Guardar o actualizar
     fun saveTicket(ticket: TicketEntity) {
         viewModelScope.launch {
             repository.save(ticket)
         }
     }
 
-    // Eliminar un ticket
+    // Eliminar
     fun delete(ticket: TicketEntity) {
         viewModelScope.launch {
             repository.delete(ticket)
         }
     }
 
-    // Actualizar un ticket
+    // Actualizar (alias de save)
     fun update(ticket: TicketEntity) {
         saveTicket(ticket)
     }
 
-    // Buscar ticket por ID en la lista actual
+    // Buscar por ID
     fun getTicketById(id: Int?): TicketEntity? {
         return ticketList.value.find { it.TicketId == id }
     }

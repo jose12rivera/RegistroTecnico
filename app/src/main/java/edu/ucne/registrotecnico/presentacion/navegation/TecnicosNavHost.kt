@@ -92,9 +92,16 @@ fun TecnicosNavHost(
 
             TicketScreen(
                 ticket = ticket,
-                agregarTicket = { fecha, cliente, asunto, descripcion, prioridad ->
+                agregarTicket = { fecha, cliente, asunto, descripcion, prioridadId, tecnicoId ->
                     if (ticket == null) {
-                        ticketViewModel.agregarTicket(fecha, cliente, asunto, descripcion, prioridad)
+                        ticketViewModel.agregarTicket(
+                            fecha = fecha,
+                            cliente = cliente,
+                            asunto = asunto,
+                            descripcion = descripcion,
+                            prioridadId = prioridadId,
+                            tecnicoId = tecnicoId
+                        )
                     } else {
                         ticketViewModel.update(
                             ticket.copy(
@@ -102,7 +109,8 @@ fun TecnicosNavHost(
                                 Cliente = cliente,
                                 Asunto = asunto,
                                 Descripcion = descripcion,
-                                Prioridad = prioridad.toString()
+                                PrioridadId = prioridadId,
+                                TecnicoId = tecnicoId
                             )
                         )
                     }
@@ -113,6 +121,7 @@ fun TecnicosNavHost(
                 }
             )
         }
+
 
 
     }
